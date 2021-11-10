@@ -20,15 +20,13 @@ jobs:
             export MINOR=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $2}')
             export PATCH=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $3}')
             export PATCH=$((PATCH+1))
-            echo "PATCH is $PATCH"
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
       - run: |
-            source my-app/savever.txt
-            echo "version is $POMVERSION"
-            sed 's/<version>.*<\/version>/<version>'$POMVERSION'<\/version>/' -i my-app/pom.xml
-      - run: |
             cd my-app
+            source savever.txt
+            mvn versions:set -DnewVersion=$POMVERSION
+            mvn compile
             mvn package
       - run: |
           cd my-app
