@@ -57,13 +57,13 @@ jobs:
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
             cd ..
-            docker build --tag icnaan/my-app:$POMVERSION --build-arg ver=$POMVERSION .
+            docker build --tag zuzu/my-app:$POMVERSION --build-arg ver=$POMVERSION .
             docker images
-            docker push icnaan/my-app:$POMVERSION
-            docker rmi icnaan/my-app:$POMVERSION -f
-            docker pull icnaan/my-app:$POMVERSION
+            docker push zuzu/my-app:$POMVERSION
+            docker rmi zuzu/my-app:$POMVERSION -f
+            docker pull zuzu/my-app:$POMVERSION
             ls -al
-            docker run --rm -it icnaan/my-app:$POMVERSION java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
+            docker run --rm -it zuzu/my-app:$POMVERSION java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
 
 
     
