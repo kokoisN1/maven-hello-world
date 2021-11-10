@@ -20,7 +20,9 @@ jobs:
             export MINOR=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $2}')
             export PATCH=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $3}')
             export PATCH=$((PATCH+1))
+            echo "PATCH is $PATCH"
             export POMVERSION=$MAJOR.$MINOR.$PATCH
+            echo "version is $POMVERSION"
       - run: echo "version is $POMVERSION"
       - run: sed '/version/{s/.*/$POMVERSION/g}' -i my-app/pom.xml
       - run: |
