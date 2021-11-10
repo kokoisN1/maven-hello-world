@@ -22,6 +22,7 @@ jobs:
             export PATCH=$((PATCH+1))
             echo "PATCH is $PATCH"
             export POMVERSION=$MAJOR.$MINOR.$PATCH
+            echo "::set-env POMVERSION=$POMVERSION" 
             echo "version is $POMVERSION"
       - run: echo "version is $POMVERSION"
       - run: sed '/version/{s/.*/$POMVERSION/g}' -i my-app/pom.xml
