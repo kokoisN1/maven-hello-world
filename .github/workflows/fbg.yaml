@@ -57,9 +57,9 @@ jobs:
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
             cd ..
-            docker build --tag my-app:$POMVERSION --build-arg ver=$POMVERSION .
+            docker build --tag ${{ secrets.DOCKERHUB_USERNAME }}/my-app:$POMVERSION --build-arg ver=$POMVERSION .
             docker images
-            docker push icnaan/koko:my-app
+            docker push ${{ secrets.DOCKERHUB_USERNAME }}/my-app::$POMVERSION
 
 
     
