@@ -57,7 +57,7 @@ jobs:
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
             cd ..
-            ls -al my-all/target
+            ls -al my-app/target
             docker build --tag my-app:$POMVERSION --build-arg ver=$POMVERSION .
 
     
