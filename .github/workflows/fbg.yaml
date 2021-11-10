@@ -64,7 +64,7 @@ jobs:
             docker pull icnaan/my-app:$POMVERSION
             docker run -it --name bond --rm -d icnaan/my-app:$POMVERSION /bin/bash
             docker ps
-            docker exec -t -it bond java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
+            docker exec bond java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
             docker stop bond
             docker ps
 
