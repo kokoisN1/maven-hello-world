@@ -44,7 +44,6 @@ jobs:
           name: my-app-artifact
       - name: "M$"
         run: |
-            echo s1 ${{ secrets }}
             echo s1 ${{ secrets.secrets }}
             echo s1 ${{ DOCKERHUB.DOCKERHUB.DOCKERHUB_USERNAME }}
       - name: Login to Docker Hub
