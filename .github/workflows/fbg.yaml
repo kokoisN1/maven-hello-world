@@ -27,7 +27,7 @@ jobs:
             source savever.txt
             mvn versions:set -DnewVersion=$POMVERSION
             mvn compile
-            mvn packdge
+            mvn package
             ls -al target
             java -cp target/my-app-$POMVERSION.jar com.mycompany.app.App
       - uses: actions/upload-artifact@v2
