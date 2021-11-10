@@ -55,8 +55,9 @@ jobs:
             export PATCH=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $3}')
             export PATCH=$((PATCH+1))
             export POMVERSION=$MAJOR.$MINOR.$PATCH
-            echo "POMVERSION=$POMVERSION">savever.txt- name: Display structure of downloaded files
+            echo "POMVERSION=$POMVERSION">savever.txt
             cd ..
+            ls -al my-all/target
             docker build --tag my-app:$POMVERSION --build-arg ver=$POMVERSION .
 
     
