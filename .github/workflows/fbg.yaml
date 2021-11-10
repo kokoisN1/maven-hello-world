@@ -15,6 +15,7 @@ jobs:
           java-version: '8'
       - name: "Extract version from pom.xml"
         run: |
+            cd my-app
             export MAJOR=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $1}')
             export MINOR=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $2}')
             export PATCH=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $3}')
