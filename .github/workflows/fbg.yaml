@@ -63,8 +63,10 @@ jobs:
             docker rmi icnaan/my-app:$POMVERSION -f
             docker pull icnaan/my-app:$POMVERSION
             docker run -it --name bond --rm -d icnaan/my-app:$POMVERSION /bin/bash
+            docker ps
             docker exec -it bond java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
             docker stop bond
+            docker ps
 
 
     
