@@ -51,6 +51,7 @@ jobs:
             export PATCH=$((PATCH+1))
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt- name: Display structure of downloaded files
+            cd ..
             docker build --tag my-app:$POMVERSION --build-arg ver=$POMVERSION .
 
     
