@@ -46,7 +46,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ DOCKERHUB.DOCKERHUB_USERNAME }}
-          password: ${{ DOCKERHUB.DOCKERHUB_TOKEN }
+          password: ${{ DOCKERHUB.DOCKERHUB_TOKEN }}
       - name: "Extract version from pom.xml- Yes, Again M$"
         run: |
             cd my-app
