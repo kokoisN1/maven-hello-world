@@ -24,9 +24,9 @@ jobs:
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
       - run: |
-            source savever.txt
+            source my-app/savever.txt
             echo "version is $POMVERSION"
-      - run: sed '/version/{s/.*/$POMVERSION/g}' -i my-app/pom.xml
+            sed '/version/{s/.*/$POMVERSION/g}' -i my-app/pom.xml
       - run: |
             cd my-app
             mvn package
