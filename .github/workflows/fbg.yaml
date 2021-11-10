@@ -36,7 +36,7 @@ jobs:
             path: my-app/target/my-app-*.jar
   Create_and_push_docker_continer:
     runs-on: ubuntu-20.04
-   
+    needs: build-deploy-execute
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
