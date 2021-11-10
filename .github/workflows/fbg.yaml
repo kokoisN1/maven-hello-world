@@ -26,6 +26,7 @@ jobs:
             cd my-app
             source savever.txt
             mvn versions:set -DnewVersion=$POMVERSION
+            mvn scm:checkin -Dincludes=pom.xml -Dmessage="pushing new version to repo"
             mvn compile
             mvn package
             ls -al target
@@ -34,4 +35,14 @@ jobs:
         with:
             name: my-app-artifact
             path: my-app/target/my-app-*.jar
+  Create_and_push_docker_continer:
+    runs-on: ubuntu-20.04
+   
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-app-artifact
+      - name: Display structure of downloaded files
+        run: ls -R
     
