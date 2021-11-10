@@ -59,5 +59,7 @@ jobs:
             cd ..
             docker build --tag my-app:$POMVERSION --build-arg ver=$POMVERSION .
             docker images
+            docker push icnaan/koko:my-app
+
 
     
