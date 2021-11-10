@@ -26,7 +26,7 @@ jobs:
       - run: |
             source my-app/savever.txt
             echo "version is $POMVERSION"
-            sed '/version/{s/.*/$POMVERSION/g}' -i my-app/pom.xml
+            sed 's/<version>.*<\/version>/<version>'$POMVERSION'<\/version>/' -i my-app/pom.xml
       - run: |
             cd my-app
             mvn package
