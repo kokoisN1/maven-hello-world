@@ -26,7 +26,6 @@ jobs:
             cd my-app
             source savever.txt
             mvn versions:set -DnewVersion=$POMVERSION
-            mvn scm:checkin -Dincludes=pom.xml -Dmessage="pushing new version to repo"
             mvn compile
             mvn package
             ls -al target
