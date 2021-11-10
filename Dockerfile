@@ -4,6 +4,6 @@ RUN useradd -u 1965 koko -d /home/koko; mkdir /home/koko;chown -R koko /home/kok
 # Change to non-root privilege
 USER koko
 #push the artifact into the continer 
-COPY my-app/target/my-app-1.0.0.jar /home/koko
+COPY my-app-1.0.0.jar /home/koko
 #execute the app.
 RUN java -cp /home/koko/my-app-1.0.0.jar com.mycompany.app.App
