@@ -28,11 +28,10 @@ jobs:
             mvn versions:set -DnewVersion=$POMVERSION
             mvn compile
             mvn package
-      - run: |
-          cd my-app
-          java -cp target/my-app-$MAJOR.$MINOR.$PATCH.jar com.mycompany.app.App
+            ls -al target
+            java -cp target/my-app-$POMVERSION.jar com.mycompany.app.App
       - uses: actions/upload-artifact@v2
         with:
             name: my-app-artifact
-            path: my-app/target/my-app-$MAJOR.$MINOR.$PATCH.jar
+            path: my-app/target/my-app-*.jar
     
