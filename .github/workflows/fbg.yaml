@@ -2,8 +2,7 @@ name: doit-using-github-actions
 on: [push]
 jobs:
   build-deploy-execute:
-    runs-on: ubuntu-20.04
-   
+    runs-on: ubuntu-20.0 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -13,6 +12,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
+      # had issues running under java 11 - so switched to java8
       - name: "Extract version from pom.xml"
         run: |
             cd my-app
@@ -22,10 +22,15 @@ jobs:
             export PATCH=$((PATCH+1))
             export POMVERSION=$MAJOR.$MINOR.$PATCH
             echo "POMVERSION=$POMVERSION">savever.txt
-      - run: |
+            # Code can be nicer looking, but I prefer readbility over a very long bash code ...
+            # saving version to file overcome M$ not sharing enviroment between steps ... M$.
+            # more info in this thread https://github.community/t/support-saving-environment-variables-between-steps/16230
+      - name: "Update POM, compile and create JAR file"
+        run: |
             cd my-app
             source savever.txt
             mvn versions:set -DnewVersion=$POMVERSION
+            # easy way to update the POM file.
             mvn compile
             mvn package
             ls -al target
@@ -47,7 +52,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Extract version from pom.xml- Yes, Again M$"
+      # Extract version from pom.xml- Yes, Again M$, this is a new job - so we do not have the version file saved ...
+      # I could have used the github actions here, but I needed the version. I assume a nicer solution can be found/used.
+      - name: "get Version, build docker, push, pull and execute app"
         run: |
             cd my-app
             export MAJOR=$(cat pom.xml | grep "^  <version>.*</version>$" | awk -F'[><]' '{print $3}' |  awk -F '[.-]+' '{print $1}')
@@ -60,6 +67,7 @@ jobs:
             docker build --tag icnaan/my-app:$POMVERSION --build-arg ver=$POMVERSION .
             docker images
             docker push icnaan/my-app:$POMVERSION
+            # remove image to validate that the pull works.
             docker rmi icnaan/my-app:$POMVERSION -f
             docker pull icnaan/my-app:$POMVERSION
             docker run -it --name bond --rm -d icnaan/my-app:$POMVERSION /bin/bash
@@ -67,6 +75,3 @@ jobs:
             docker exec bond java -cp /home/koko/my-app-$POMVERSION.jar com.mycompany.app.App
             docker stop bond
             docker ps
-
-
-    
